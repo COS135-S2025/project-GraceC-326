@@ -11,9 +11,8 @@ main file of plagiarism checker
 int main(){
     
     
-    
    
-    printf("Welcome to the Plagiarism Checker! Please enter the name of the first file you want to compare: ");
+    printf("Ok! Please enter the name of the first file you want to compare: ");
     char nameBuffer[1024];
     char* nameTrim;
     FILE *filePtr1 = NULL;
@@ -27,6 +26,7 @@ int main(){
         }
     }
     
+    printf("\n");
     printf("File name sucessfully entered! Now, please enter the name of the second file you want to compare: ");
     char nameBuffer2[1024];
     char* nameTrim2;
@@ -41,27 +41,34 @@ int main(){
         }
     }
     
-    
+    printf("\n");
     FileStruct *firstFile = createFileData(nameTrim);
     printf("File 1 sucessfully created.\n");
     FileStruct *secondFile = createFileData(nameTrim2);
-    printf("File 2 sucessfully created.\n");
+    printf("File 2 sucessfully created.\n\n");
     
+    printf("File 1 contains:\n");
     compileFileData(filePtr1, firstFile);
-    printf("File 1 sucessfully compiled.\n");
-    printf("===============================================\n");
+    printf("File 1 data successfully stored.\n\n");
+    printf("===============================================\n\n");
+    printf("File 2 contains:\n");
     compileFileData(filePtr2, secondFile);
-    printf("File 2 sucessfully compiled.\n");
+    printf("File 2 data successfully stored.\n\n");
     
     fclose(filePtr1);
     fclose(filePtr2);
     
-    printf("===============================================\n");
-    /*
-    for(int i = 0; i < firstFile->num_lines; i++){
-        printf("%s\n", firstFile->data_array[i]); 
+    printf("===============================================\n\n");
+    printf("Testing for plagiarism...\n");
+    
+    int result = testPlagiarism(firstFile, secondFile);
+    if(result == 0){
+        printf("No matching lines were found! Your files look plagiarism-free.\n");
+    } else if(result == 1){
+        printf("%d matching line was found. Please consider reexamining your files, as there may be some plagiarism in your work.\n", result);
+    } else {
+        printf("%d matching lines were found. Please consider reexamining your files, as there may be some plagiarism in your work.\n", result);
     }
-    */
     
     freeCompiledFile(firstFile);
     firstFile = NULL;

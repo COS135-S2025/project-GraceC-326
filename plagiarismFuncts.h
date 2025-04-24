@@ -29,6 +29,8 @@ char* trimBuffer(char* buffer);
 
 int compileFileData(FILE *filePtr, FileStruct *file);
 
+int testPlagiarism(FileStruct *file1, FileStruct *file2);
+
 void freeCompiledFile(FileStruct *file);
 
 #endif
