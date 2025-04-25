@@ -12,9 +12,17 @@ the declaration of my project's functions
 #include<string.h>
 #include<ctype.h>
 #include<time.h>
+//#include<windows.h>
 
 #define ANSWER_SIZE 2
 #define MAX_FILENAME_LENGTH 255
+
+#define RED "\033[31m"
+#define GREEN "\033[92m"
+#define YELLOW "\033[93m"
+#define BLUE "\033[94m"
+#define PINK "\033[95m"
+#define WHITE "\033[0m"
 
 typedef struct FileStruct{
     int max_size;
