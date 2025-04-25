@@ -17,17 +17,19 @@ int main(){
     char againBuffer[255] = "pluh";
     goAgain = againBuffer;
 
-    while(input[0] != '0' || goAgain[0] != 'n'){
-
-        printf("Welcome to the Plagiarism Checker!\n");
-        printf("Enter 1 to compare two files, or enter 0 to quit the program.\n");
+    while(input[0] != '0' && goAgain[0] != 'n'){
+    
+        printf("\n");
+        printf(YELLOW "Welcome to the Plagiarism Checker!\n");
+        printf(WHITE "Enter " YELLOW "1" WHITE " to compare two files, or enter " YELLOW "0" WHITE " to quit the program.\n");
         printf("> ");
         fgets(inputBuffer, sizeof(inputBuffer), stdin);
         input = trimBuffer(inputBuffer);
 
+        // inputting 0 doesnt quit program plz help
         switch(input[0]){
             case '0':
-                printf("Goodbye then! Closing program...\n");
+                printf(YELLOW "Goodbye then! " WHITE "Closing program...\n");
                 break;
             case '1':
                 printf("Ok! Please enter the name of the first file you want to compare: ");
@@ -40,12 +42,12 @@ int main(){
                     
                     filePtr1 = fopen(nameTrim, "r"); 
                     if (filePtr1 == NULL){
-                    printf("Couldn't open file. Please try putting in the file name again, as it may have been typed in incorrectly:\n");
+                    printf(RED "\nCouldn't open file. " WHITE "Please try putting in the file name again, as it may have been typed in incorrectly: ");
                     }
                 }
                 
                 printf("\n");
-                printf("File name sucessfully entered! Now, please enter the name of the second file you want to compare: ");
+                printf(GREEN "File name sucessfully entered!" WHITE " Now, please enter the name of the second file you want to compare: ");
                 char nameBuffer2[1024];
                 char* nameTrim2;
                 FILE *filePtr2 = NULL;
@@ -55,37 +57,39 @@ int main(){
                     
                     filePtr2 = fopen(nameTrim2, "r"); 
                     if (filePtr2 == NULL){
-                    printf("Couldn't open file. Please try putting in the file name again, as it may have been typed in incorrectly:\n");
+                    printf(RED "\nCouldn't open file. " WHITE "Please try putting in the file name again, as it may have been typed in incorrectly: ");
                     }
                 }
                 
                 printf("\n");
                 FileStruct *firstFile = createFileData(nameTrim);
-                printf("File 1 sucessfully created.\n");
+                printf(GREEN "File 1 sucessfully created.\n");
                 FileStruct *secondFile = createFileData(nameTrim2);
                 printf("File 2 sucessfully created.\n\n");
                 
-                printf("File 1 contains:\n");
+                printf(YELLOW "File 1 contains:" WHITE "\n");
                 compileFileData(filePtr1, firstFile);
-                printf("File 1 data successfully stored.\n\n");
+                printf("\n");
+                printf(GREEN "File 1 data successfully stored." WHITE "\n");
                 printf("===============================================\n\n");
-                printf("File 2 contains:\n");
+                printf(YELLOW "File 2 contains:" WHITE "\n");
                 compileFileData(filePtr2, secondFile);
-                printf("File 2 data successfully stored.\n\n");
+                printf("\n");
+                printf(GREEN "File 2 data successfully stored.\n");
                 
                 fclose(filePtr1);
                 fclose(filePtr2);
                 
-                printf("===============================================\n\n");
-                printf("Testing for plagiarism...\n");
+                printf(WHITE"===============================================\n\n");
+                printf(YELLOW "Testing for plagiarism...\n");
                 
                 int result = testPlagiarism(firstFile, secondFile);
                 if(result == 0){
-                    printf("No matching lines were found! Your files look plagiarism-free.\n\n");
+                    printf(GREEN "No matching lines were found!" WHITE " Your files look plagiarism-free.\n\n");
                 } else if(result == 1){
-                    printf("%d matching line was found. Please consider reexamining your files, as there may be some plagiarism in your work.\n\n", result);
+                    printf(RED "%d matching line was found." WHITE " Please consider reexamining your files, as there may be some plagiarism in your work.\n\n", result);
                 } else {
-                    printf("%d matching lines were found. Please consider reexamining your files, as there may be some plagiarism in your work.\n\n", result);
+                    printf(RED "%d matching lines were found." WHITE " Please consider reexamining your files, as there may be some plagiarism in your work.\n\n", result);
                 }
                 
                 freeCompiledFile(firstFile);
@@ -94,15 +98,17 @@ int main(){
                 secondFile = NULL;
 
                 printf("Do you want to run the program again? y/n\n");
-                printf("> ");
+                printf(YELLOW "Note: Please enter your input in lowercase\n");
+                printf(WHITE "> ");
                 fgets(againBuffer, sizeof(againBuffer), stdin);
-                againTrim = trimBuffer(againBuffer);
-                goAgain = toLower(againTrim);
+                goAgain = trimBuffer(againBuffer);
+                
 
                 switch(goAgain[0]){
                     case 'n':
-                        printf("Goodbye then! Closing program...\n");
-
+                        printf(YELLOW "Goodbye then! " WHITE "Closing program...\n");
+                }
+        }
     }
 
     return 0;
