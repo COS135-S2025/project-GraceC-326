@@ -6,7 +6,7 @@ the defining of my project's functions
 
 #include "plagiarismFuncts.h"
 
-// Given the name of the file, this method creates and allocates space for the data of the file.
+// Given a string of the file's name, this method creates and allocates space for the data of the file.
 FileStruct* createFileData(char *fileName){
     FileStruct *n = malloc(sizeof(FileStruct));
     
@@ -32,7 +32,7 @@ char* trimBuffer(char* buffr){
     return trimPtr;
 }
 
-// takes the data of a given FILE pointer and puts it into a given FileStruct. Recompiles as necessary.
+// takes the data of a given FILE pointer and stores it into a given FileStruct. Recompiles as necessary.
 int compileFileData(FILE *filePtr, FileStruct *file){
     char buffer[1024];
     file->num_lines = 0;
@@ -61,7 +61,7 @@ int compileFileData(FILE *filePtr, FileStruct *file){
     return 1;
 }
 
-// Takes two stored files and compares their string arrays a line at a time. Returns 1 if one or more string lines match when being compared, returns a 0 if no matches were found.
+// Takes two stored files and compares their string arrays a line at a time. Returns the number of how many string lines match when being compared.
 int testPlagiarism(FileStruct *file1, FileStruct *file2){
 // make sure the singular for loop isnt a problem 
     int matches = 0;
